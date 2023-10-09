@@ -1,0 +1,6 @@
+dist
+build
+public
+node_modules
+vite-env.d.ts
+src/components/ui
