@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { Navbar } from './Navbar/Navbar'
+import { Footer } from './Footer'
 
 export const RootLayout = () => {
   return (
@@ -9,6 +10,7 @@ export const RootLayout = () => {
         <main className="grow">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </>
   )

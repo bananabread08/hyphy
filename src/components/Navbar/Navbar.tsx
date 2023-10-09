@@ -1,4 +1,4 @@
-import { Shell } from 'lucide-react'
+import { Shell, ShoppingBag } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ModeToggle } from './ModeToggle'
 
@@ -14,6 +14,9 @@ export const Navbar = () => {
           <ModeToggle />
           <Link to="/shop">Shop</Link>
           <Link to="#">About</Link>
+          <Link to="/cart">
+            <ShoppingBag />
+          </Link>
         </div>
       </nav>
     </header>
