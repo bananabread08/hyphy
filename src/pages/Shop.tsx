@@ -13,6 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { useState } from 'react'
+import { X } from 'lucide-react'
 
 type HyPhyProduct = {
   name: string
@@ -113,13 +115,13 @@ const keybs: ProductKeyboard[] = [
 
 const ProductPreview = ({ keyb }: { keyb: ProductKeyboard }) => {
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardContent className="p-0">
         <div className="relative">
           <img
             src={keyb.variant[0].img}
             alt={keyb.name}
-            className="w-full h-auto dark:brightness-75"
+            className="w-full h-full dark:brightness-75"
           ></img>
           {keyb.status === 'new' ? (
             <div className="absolute top-4 left-4 bg-emerald-400 dark:bg-green-600 text-white px-2 rounded-full uppercase font-bold">
@@ -137,34 +139,127 @@ const ProductPreview = ({ keyb }: { keyb: ProductKeyboard }) => {
 }
 
 export const Shop = () => {
+  const [filter, setFilter] = useState<KeyboardTags>([])
+
+  const addToFilter = (tag: KBProfile | KBSeries | KBSize) => {
+    if (filter.includes(tag)) return
+    setFilter(filter.concat(tag))
+  }
+
+  const removeFromFilter = (tag: KBProfile | KBSeries | KBSize) => {
+    if (!filter.includes(tag)) return
+    const newFilter = filter.filter((x) => x !== tag)
+    setFilter(newFilter)
+  }
+
+  const filteredData =
+    filter.length === 0
+      ? [...keybs]
+      : keybs.filter((k) => {
+          return filter.some((t) => k.tags.includes(t))
+        })
+
   return (
     <section>
       <div className="flex flex-col sm:flex-row">
-        <aside className="w-full sm:w-[200px] flex flex-col items-center">
-          <h1 className="font-bold">Sort</h1>
-          <div>
+        <aside className="w-full sm:w-[300px] flex flex-col items-center p-8">
+          <h1 className="font-bold">Filter</h1>
+          <div className="w-full">
             <h1>Keyboard Profile</h1>
-            {profile.map((p) => (
-              <div>{p}</div>
-            ))}
+            <div className="flex flex-col gap-2">
+              {profile.map((t) => {
+                return filter.includes(t) ? (
+                  <div
+                    key={t}
+                    onClick={() => removeFromFilter(t)}
+                    className={
+                      'w-fit flex items-center gap-2 py-1 px-2 cursor-pointer rounded-lg dark:bg-sky-600 bg-sky-500 text-white'
+                    }
+                  >
+                    <span>{t}</span>
+                    <X />
+                  </div>
+                ) : (
+                  <div
+                    key={t}
+                    onClick={() => addToFilter(t)}
+                    className={
+                      'w-fit flex items-center gap-2 py-1 px-2 cursor-pointer rounded-lg hover:bg-secondary'
+                    }
+                  >
+                    {t}
+                  </div>
+                )
+              })}
+            </div>
           </div>
-          <div>
+          <div className="w-full">
             <h1>Series</h1>
-            {series.map((s) => (
-              <div>{s}</div>
-            ))}
+            <div className="flex flex-col gap-2">
+              {series.map((t) => {
+                return filter.includes(t) ? (
+                  <div
+                    key={t}
+                    onClick={() => removeFromFilter(t)}
+                    className={
+                      'w-fit flex items-center gap-2 py-1 px-2 cursor-pointer rounded-lg dark:bg-sky-600 bg-sky-500 text-white'
+                    }
+                  >
+                    <span>{t}</span>
+                    <X />
+                  </div>
+                ) : (
+                  <div
+                    key={t}
+                    onClick={() => addToFilter(t)}
+                    className={
+                      'w-fit flex items-center gap-2 py-1 px-2 cursor-pointer rounded-lg hover:bg-secondary'
+                    }
+                  >
+                    {t}
+                  </div>
+                )
+              })}
+            </div>
           </div>
-          <div>
+          <div className="w-full">
             <h1>Size</h1>
-            {size.map((sz) => (
-              <div>{sz}</div>
-            ))}
+            <div className="flex flex-col gap-2">
+              {size.map((t) => {
+                return filter.includes(t) ? (
+                  <div
+                    key={t}
+                    onClick={() => removeFromFilter(t)}
+                    className={
+                      'w-fit flex items-center gap-2 py-1 px-2 cursor-pointer rounded-lg dark:bg-sky-600 bg-sky-500 text-white'
+                    }
+                  >
+                    <span>{t}</span>
+                    <X />
+                  </div>
+                ) : (
+                  <div
+                    key={t}
+                    onClick={() => addToFilter(t)}
+                    className={
+                      'w-fit flex items-center gap-2 py-1 px-2 cursor-pointer rounded-lg hover:bg-secondary'
+                    }
+                  >
+                    {t}
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </aside>
         <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-          {keybs.map((keyb) => {
-            return <ProductPreview key={keyb.name} keyb={keyb} />
-          })}
+          {filteredData.length === 0 ? (
+            <div>No products found!</div>
+          ) : (
+            filteredData.map((keyb) => {
+              return <ProductPreview key={keyb.name} keyb={keyb} />
+            })
+          )}
         </div>
       </div>
       <hr />
