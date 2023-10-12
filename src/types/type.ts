@@ -3,6 +3,7 @@ type HyPhyProduct = {
   price: number
   originalPrice?: number
   status?: 'new' | 'discontinued'
+  id: string
 }
 
 type KBVariant = {

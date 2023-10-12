@@ -13,6 +13,7 @@ import { ProductKeyboard } from './types/type'
 
 export const data: ProductKeyboard[] = [
   {
+    id: 'air75-v2',
     name: 'Air75 V2 Wireless Custom Mechanical Keyboard',
     type: 'keyboard',
     price: 119.95,
@@ -30,6 +31,7 @@ export const data: ProductKeyboard[] = [
     ],
   },
   {
+    id: 'field75',
     name: 'Field75 Wireless Mechanical Gaming Keyboard',
     type: 'keyboard',
     price: 159.95,
@@ -50,6 +52,7 @@ export const data: ProductKeyboard[] = [
     ],
   },
   {
+    id: 'halo75',
     name: 'Halo65 Wireless Mechanical Keyboard',
     type: 'keyboard',
     price: 119.95,
@@ -66,6 +69,7 @@ export const data: ProductKeyboard[] = [
     ],
   },
   {
+    id: 'air60',
     name: 'Air60 Wireless Mechanical Keyboard',
     type: 'keyboard',
     price: 99.95,
@@ -78,6 +82,7 @@ export const data: ProductKeyboard[] = [
     ],
   },
   {
+    id: 'halo75',
     name: 'Halo75 Wireless Mechanical Keyboard',
     type: 'keyboard',
     price: 129.95,
@@ -94,6 +99,7 @@ export const data: ProductKeyboard[] = [
     ],
   },
   {
+    id: 'air75',
     name: 'Air75 Wireless Mechanical Keyboard',
     type: 'keyboard',
     price: 99.95,
