@@ -1,4 +1,4 @@
-import { ProductKeyboard } from '@/types/type'
+import { ProductKeyboard, KBVariant } from '@/types/type'
 import { useLoaderData } from 'react-router-dom'
 import { useState } from 'react'
 import { checkColor } from '@/lib/utils'
@@ -10,10 +10,53 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card'
+import { useCart } from '@/hooks/useCart'
+
+const ProductSubmitButton = ({
+  product,
+  variant,
+}: {
+  product: ProductKeyboard
+  variant: KBVariant
+}) => {
+  const { state, dispatch } = useCart()
+  const add = () => {
+    const payload = {
+      id: product.id,
+      variant,
+      name: product.name,
+      quantity: 1,
+      switch: 'Red',
+    }
+    dispatch({ type: 'add', payload })
+  }
+
+  const remove = () => {
+    dispatch({ type: 'remove', payload: { id: product.id, variant } })
+  }
+  return (
+    <>
+      {state.find(
+        (item) =>
+          item.id === product.id && item.variant.color === variant.color,
+      ) ? (
+        <Button className="my-auto" variant="destructive" onClick={remove}>
+          Remove From Cart
+        </Button>
+      ) : (
+        <Button className="my-auto" onClick={add}>
+          Add to Cart
+        </Button>
+      )}
+    </>
+  )
+}
+
 export const Product = () => {
   const data = useLoaderData() as ProductKeyboard[]
   const product = data[0]
   const [variant, setVariant] = useState(data[0].variant[0])
+
   return (
     <section className="grid place-items-center container p-8 ">
       <Card className="flex flex-col lg:flex-row overflow-hidden">
@@ -74,7 +117,7 @@ export const Product = () => {
               </div>
             </div>
           </div>
-          <Button className="my-auto">Add to Cart</Button>
+          <ProductSubmitButton product={product} variant={variant} />
         </CardHeader>
       </Card>
     </section>
