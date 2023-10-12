@@ -4,7 +4,9 @@ import { NotFound } from './pages/NotFound'
 import { Home } from './pages/Home'
 import { Shop } from './pages/Shop'
 import { ThemeProvider } from './context/ThemeContext'
-
+import { loader as productLoader } from './components/Product/Product.loader'
+import { loader as shopLoader } from './components/Product/Shop.loader'
+import { Product } from './pages/Product'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -18,6 +20,12 @@ const router = createBrowserRouter([
       {
         path: '/shop',
         element: <Shop />,
+        loader: shopLoader,
+      },
+      {
+        path: '/shop/:id',
+        element: <Product />,
+        loader: productLoader,
       },
     ],
   },

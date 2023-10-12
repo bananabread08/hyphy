@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { KBTag, profile, series, size } from '@/types/type'
-import { data } from '@/data'
+import { KBTag, ProductKeyboard, profile, series, size } from '@/types/type'
 import { FilterWrapper, FilterGroup } from '@/components/Product/Filter'
 import { ProductPreview } from '@/components/Product/ProductPreview'
+import { useLoaderData } from 'react-router-dom'
 
 export const Shop = () => {
+  const data = useLoaderData() as ProductKeyboard[]
   const [filter, setFilter] = useState<KBTag[]>([])
 
   const addToFilter = (tag: KBTag) => {

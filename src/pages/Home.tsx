@@ -38,7 +38,7 @@ export const Home = () => {
   return (
     <main>
       {heroData.map((data) => (
-        <HeroImage data={data} />
+        <HeroImage key={data.title} data={data} />
       ))}
     </main>
   )
