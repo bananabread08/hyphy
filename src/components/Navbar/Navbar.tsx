@@ -1,6 +1,21 @@
 import { Shell, ShoppingBag } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ModeToggle } from './ModeToggle'
+import { useCart } from '@/hooks/useCart'
+
+const CartLink = () => {
+  const { state } = useCart()
+  return (
+    <Link to="/cart">
+      <div className="relative">
+        <ShoppingBag />
+        <div className="h-5 w-5 absolute top-[-0.5rem] right-[-0.5rem] z-10 font-bold bg-red-400 text-white rounded-full text-sm text-center">
+          {state.length}
+        </div>
+      </div>
+    </Link>
+  )
+}
 
 export const Navbar = () => {
   return (
@@ -13,10 +28,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-4 ml-auto">
           <ModeToggle />
           <Link to="/shop">Shop</Link>
-          <Link to="#">About</Link>
-          <Link to="/cart">
-            <ShoppingBag />
-          </Link>
+          <CartLink />
         </div>
       </nav>
     </header>
