@@ -6,7 +6,7 @@ type HyPhyProduct = {
   id: string
 }
 
-type KBVariant = {
+export type KBVariant = {
   color: string
   img: string
 }
@@ -27,4 +27,16 @@ export interface ProductKeyboard extends HyPhyProduct {
   type: 'keyboard'
   variant: KBVariant[]
   tags: KBTag[]
+}
+
+type Item = Pick<ProductKeyboard, 'name' | 'id'>
+
+export interface CartItem extends Item {
+  variant: KBVariant
+  quantity: number
+  switch: string
+  nufolio?: {
+    type: 'Nostalgic Tan' | 'Lustrous Gray'
+    price: 29
+  }
 }
