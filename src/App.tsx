@@ -7,7 +7,6 @@ import { ThemeProvider } from './context/ThemeContext'
 import { loader as productLoader } from './components/Product/Product.loader'
 import { loader as shopLoader } from './components/Product/Shop.loader'
 import { Product } from './pages/Product'
-import { Cart } from './pages/Cart'
 import { CartProvider } from './context/CartContext'
 const router = createBrowserRouter([
   {
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
         path: '/shop/:id',
         element: <Product />,
         loader: productLoader,
-      },
-      {
-        path: '/cart',
-        element: <Cart />,
       },
     ],
   },
