@@ -41,13 +41,13 @@ function cartReducer(state: State, action: Action): State {
       return state?.concat(action.payload)
     }
     case 'remove': {
-      console.log({ state })
       const newState = state.filter(
         (item) =>
-          item.id === action.payload.id &&
-          item.variant.color !== action.payload.variant.color,
+          !(
+            item.id === action.payload.id &&
+            item.variant.color === action.payload.variant.color
+          ),
       )
-      console.log({ newState })
       return newState
     }
     case 'clear':
