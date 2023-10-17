@@ -10,6 +10,8 @@ type Action =
   | { type: 'add'; payload: CartItem }
   | { type: 'remove'; payload: { id: string; variant: KBVariant } }
   | { type: 'clear' }
+  | { type: 'increment'; payload: { id: string; variant: KBVariant } }
+  | { type: 'decrement'; payload: { id: string; variant: KBVariant } }
 
 type Dispatch = (action: Action) => void
 type State = CartItem[]
@@ -48,7 +50,31 @@ function cartReducer(state: State, action: Action): State {
             item.variant.color === action.payload.variant.color
           ),
       )
-      return newState
+      console.log({ newState })
+      return [...newState]
+    }
+    case 'increment': {
+      return state.map((item) => {
+        if (
+          item.variant.color === action.payload.variant.color &&
+          item.id === action.payload.id
+        ) {
+          return { ...item, quantity: item.quantity + 1 }
+        }
+        return item
+      })
+    }
+    case 'decrement': {
+      return state.map((item) => {
+        if (
+          item.variant.color === action.payload.variant.color &&
+          item.id === action.payload.id
+        ) {
+          if (item.quantity - 1 === 0) return item
+          return { ...item, quantity: item.quantity - 1 }
+        }
+        return item
+      })
     }
     case 'clear':
       return []
