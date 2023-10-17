@@ -29,14 +29,11 @@ export interface ProductKeyboard extends HyPhyProduct {
   tags: KBTag[]
 }
 
-type Item = Pick<ProductKeyboard, 'name' | 'id'>
+type Item = Pick<ProductKeyboard, 'name' | 'id' | 'price'>
 
 export interface CartItem extends Item {
   variant: KBVariant
   quantity: number
   switch: string
-  nufolio?: {
-    type: 'Nostalgic Tan' | 'Lustrous Gray'
-    price: 29
-  }
+  nufolio?: 'Nostalgic Tan' | 'Lustrous Gray' | 'Not Included'
 }
