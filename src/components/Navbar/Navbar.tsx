@@ -15,7 +15,13 @@ import {
 import { Button } from '../ui/button'
 
 const CartLink = () => {
-  const { state } = useCart()
+  const { state, dispatch } = useCart()
+  const subtotal = state.reduce((acc, item) => {
+    console.log(item)
+    const itemTotal = item.quantity * item.price
+    console.log(itemTotal)
+    return acc + itemTotal
+  }, 0)
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -39,9 +45,7 @@ const CartLink = () => {
             </SheetHeader>
             <ul className="flex flex-col gap-4 my-8">
               {state.map((item, index) => {
-                const nufolio = item.nufolio
-                  ? item.nufolio.type
-                  : 'Not included'
+                const nufolio = item.nufolio ? item.nufolio : 'Not included'
                 return (
                   <li
                     key={item.id + item.variant.color + '_cart'}
@@ -60,20 +64,44 @@ const CartLink = () => {
                         <p className="capitalize">{`${item.variant.color} / ${item.switch} / ${nufolio}`}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 self-end">
-                      <Button size="icon">
-                        <Plus />
-                      </Button>
-                      <p>{item.quantity}</p>
-                      <Button size="icon">
-                        <Minus />
-                      </Button>
+                    <div className="flex justify-between items-center w-full">
+                      <div className="flex-1 text-center text-muted-foreground">
+                        <p>${item.price}</p>
+                      </div>
+                      <div className="flex items-center gap-4 self-end flex-1">
+                        <Button
+                          size="icon"
+                          onClick={() =>
+                            dispatch({
+                              type: 'increment',
+                              payload: { id: item.id, variant: item.variant },
+                            })
+                          }
+                        >
+                          <Plus />
+                        </Button>
+                        <p>{item.quantity}</p>
+                        <Button
+                          size="icon"
+                          onClick={() =>
+                            dispatch({
+                              type: 'decrement',
+                              payload: { id: item.id, variant: item.variant },
+                            })
+                          }
+                        >
+                          <Minus />
+                        </Button>
+                      </div>
                     </div>
                     {index !== state.length - 1 ? <hr></hr> : null}
                   </li>
                 )
               })}
             </ul>
+            <p className="text-center my-4">
+              Subtotal: ${subtotal.toFixed(2)}{' '}
+            </p>
             <SheetFooter>
               <SheetClose asChild>
                 <Button type="submit">Checkout</Button>
