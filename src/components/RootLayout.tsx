@@ -5,7 +5,7 @@ import { Footer } from './Footer'
 export const RootLayout = () => {
   return (
     <>
-      <div className="flex flex-col justify-center leading-loose">
+      <div className="flex flex-col justify-center leading-loose font-poppins">
         <Navbar />
         <main className="grow">
           <Outlet />
