@@ -4,3 +4,4 @@ public
 node_modules
 vite-env.d.ts
 src/components/ui
+vite.config.ts
