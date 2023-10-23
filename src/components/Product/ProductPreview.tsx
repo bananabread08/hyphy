@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 export const ProductPreview = ({ keyb }: { keyb: ProductKeyboard }) => {
   const [img, setImage] = useState(keyb.variant[0])
   return (
-    <Link to={`/shop/${keyb.id}`}>
+    <Link to={`/shop/${keyb.id}`} aria-label={`/shop/${keyb.id}`}>
       <Card className="overflow-hidden h-full">
         <CardContent className="p-0">
           <div className="relative">

@@ -25,7 +25,11 @@ const CartLink = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="relative p-0 h-6 w-6">
+        <Button
+          variant="ghost"
+          title="cart-button"
+          className="relative p-0 h-6 w-6"
+        >
           <ShoppingBag />
           <div className="h-5 w-5 absolute top-[-0.5rem] right-[-0.5rem] z-10 font-bold bg-red-400 text-white rounded-full text-sm text-center">
             {state.length}
